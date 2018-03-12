@@ -32,6 +32,8 @@
 
 @end
 
+
+
 void PowerMateCallbackFunction(
 	void *	 		inTarget,
 	IOReturn 		inResult,
