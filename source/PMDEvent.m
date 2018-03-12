@@ -24,13 +24,21 @@ static UInt64	sActiveEventID = 0;
 @synthesize processedOffset = _processedOffset;
 @synthesize eventTime = _eventTime;
 
+
 + (NSString *) stringForType: (NSUInteger) inType
 {
 	NSString	*eventName = nil;
 	
 	switch (inType) {
 		case ePowerMateAction_ButtonPress:		eventName = @"Press       ";	break;
-		case ePowerMateAction_ButtonRelease:	eventName = @"Release     ";	break;
+		case ePowerMateAction_ButtonRelease:
+            eventName = @"Release     ";
+            CGEventRef event1, event2;
+            event1 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)49, true);
+            CGEventPost(kCGSessionEventTap, event1);
+            event2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)49, false);
+            CGEventPost(kCGSessionEventTap, event2);
+            break;
 		case ePowerMateAction_RotateLeft:		eventName = @"Rotate Left ";	break;
 		case ePowerMateAction_RotateRight:		eventName = @"Rotate Right";	break;
 		case ePowerMateAction_ButtonLongPress:	eventName = @"Long Press  ";	break;
